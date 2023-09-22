@@ -56,3 +56,45 @@ taxes = [
     {"department": "IT Department", "name": "hiring", "value_percents": 6},
     {"department": "BizDev Department", "name": "sales", "value_percents": 20},
 ]
+
+# Ваши задачи такие:
+# 1. Вывести названия всех отделов
+print(*[department['title'] for department in departments], sep=', ')
+# 2. Вывести имена всех сотрудников компании.
+name_list = []
+for i, employers in enumerate([department['employers'] for department in departments]):
+    name_list.extend([employer['first_name'] for employer in employers])
+print(*name_list, sep=', ')
+
+"""
+# Вариант 2 для варианта 2
+name_list = []
+for department in departments:
+    for employer in department['employers']:
+        name_list.append(employer['first_name'])
+        #print(name_list)
+print(*name_list, sep=', ')
+"""
+# 3. Вывести имена всех сотрудников компании с указанием отдела, в котором они работают.
+for department in departments:
+    for employer in department['employers']:
+        print(f"Department: {department['title']}; Employee: {employer['first_name']}")
+
+# 4. Вывести имена всех сотрудников компании, которые получают больше 100к.
+for department in departments:
+    for employer in department['employers']:
+        if employer['salary_rub'] > 100000:
+            print(f"Employee {employer['first_name']} earns more than 100,000")
+
+# 5. Вывести позиции, на которых люди получают меньше 80к (можно с повторениями).
+for department in departments:
+    for employer in department['employers']:
+        if employer['salary_rub'] < 100000:
+            print(f"In department {department['title']}, employees earn less than 80,000")
+            
+# 6. Посчитать, сколько денег в месяц уходит на каждый отдел – и вывести вместе с названием отдела
+for department in departments:
+    department_salary = 0
+    for employer in department['employers']:
+        department_salary += employer['salary_rub']
+    print(f"In department {department['title']}, employees earn a total of {department_salary}")
